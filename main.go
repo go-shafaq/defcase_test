@@ -9,9 +9,11 @@ import (
 var (
 	Marshal   = json.Marshal
 	Unmarshal = json.Unmarshal
+	DefCase   = func(f func(tag string) func(pkgPath, name string) string) {}
 )
 
 func SnakeCaseTest() {
+	DefCase(defcase.DefCaseFn)
 	defcase.DefCase("json", "*", defcase.Snak_case)
 	id, firstName := 13, "Jon"
 	userJs := fmt.Sprintf(`{"id":%d, "first_name":"%s"}`, id, firstName)
@@ -24,6 +26,7 @@ func SnakeCaseTest() {
 		panic(fmt.Sprintf(`%v, id=%d, fn=%s`, u, id, firstName))
 	}
 
+	fmt.Println("SUCCESS")
 	fmt.Println("DONE")
 }
 
